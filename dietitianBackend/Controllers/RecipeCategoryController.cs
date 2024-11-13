@@ -70,11 +70,11 @@ namespace dietitianBackend.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteRecipeCategory(int id)
         {
             var recipeCat = await _context.RecipeCategory.FindAsync(id);
-            if (recipeCat != null)
+            if (recipeCat == null)
             {
                 return NotFound();
             }

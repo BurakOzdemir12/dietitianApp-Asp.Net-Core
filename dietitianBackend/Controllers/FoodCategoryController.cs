@@ -76,7 +76,7 @@ namespace dietitianBackend.Controllers
         public async Task<IActionResult> DeleteFoodCategory(int id)
         {
             var foodCat = await _context.FoodCategories.FindAsync(id);
-            if (foodCat != null)
+            if (foodCat == null)
             {
                 return NotFound();
             }

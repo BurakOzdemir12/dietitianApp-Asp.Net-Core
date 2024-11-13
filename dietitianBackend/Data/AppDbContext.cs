@@ -17,8 +17,12 @@ namespace dietitianBackend.Data
        
         public DbSet<Measurements> Measurements { get; set; }
 
-/*        public DbSet<RecipeRelationCategory> RecipeRelationCategory { get; set; }
-*/
+        public DbSet<Blogs> Blogs{ get; set; }
+        public DbSet<BlogCategory> BlogCategory { get; set; }
+
+
+        /*        public DbSet<RecipeRelationCategory> RecipeRelationCategory { get; set; }
+        */
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -44,7 +48,16 @@ namespace dietitianBackend.Data
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
+            modelBuilder.Entity<Blogs>()
+                .HasMany(r => r.BlogCategories)
+                .WithMany(r => r.Blogs)
+                .UsingEntity<Dictionary<string, string>>(
+                "BlogBlogCategory",
+                r => r.HasOne<BlogCategory>()
+                .WithMany()
+                .HasForeignKey("BlogCategoryId"),
+                r => r.HasOne<Blogs>().WithMany().HasForeignKey("BlogId")
+                );
         }
     }
 }

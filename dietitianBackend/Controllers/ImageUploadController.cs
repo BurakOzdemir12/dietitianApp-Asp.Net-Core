@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 namespace dietitianBackend.Controllers
@@ -19,6 +20,40 @@ namespace dietitianBackend.Controllers
         {
             _context = context;
             _uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "uploads"); // wwwroot dışında
+        }
+        
+        [HttpPut("upload/blog({id}")]
+        public async Task<IActionResult> UpdateBlogImage(int id, IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("Dosya Yüklenmedi");
+            }
+            var blog = await _context.Blogs.FindAsync(id);
+            if (blog == null)
+                return NotFound("Blog bulunamadı.");
+
+            //var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName); // Benzersiz dosya adı oluştur
+            var filePath = Path.Combine(_uploadsFolder, file.FileName);
+
+            if (!string.IsNullOrEmpty(blog.Img))
+            {
+                var oldFilePath = Path.Combine(_uploadsFolder, Path.GetFileName(blog.Img));
+                if (System.IO.File.Exists(oldFilePath))
+                {
+                    System.IO.File.Delete(oldFilePath);
+                }
+            }
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            blog.Img = $"/uploads/{file.FileName}";
+            _context.Entry(blog).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { FilePath = blog.Img });
         }
 
         [HttpPost("upload/recipe/{id}")]
@@ -168,7 +203,20 @@ namespace dietitianBackend.Controllers
             await _context.SaveChangesAsync();
             return Ok(new { filePath = food.Img });
         }
+        [HttpGet("blog/{id}")]
+        public async Task<IActionResult> GetBlogImage(int id)
+        {
+            var blog = await _context.Blogs.FindAsync(id);
+            if (blog == null || string.IsNullOrEmpty(blog.Img))
+                return NotFound("Blog Resimi bulunamadı.");
 
+            var filePath = Path.Combine(_uploadsFolder, Path.GetFileName(blog.Img));
+            if (!System.IO.File.Exists(filePath))
+                return NotFound();
+
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(fileBytes, "image/jpg");
+        }
         [HttpGet("food/{id}")]
         public async Task<IActionResult> GetFoodImage(int id)
         {
