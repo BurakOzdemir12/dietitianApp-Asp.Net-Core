@@ -26,7 +26,9 @@ builder.Services.AddCors(options=>
 
     options.AddDefaultPolicy(builder =>
     {
-        builder.WithOrigins(frontendURL).AllowAnyMethod()
+        builder.WithOrigins(frontendURL)
+        
+        .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials();
         ;
@@ -60,6 +62,7 @@ app.UseStaticFiles(new StaticFileOptions
 
     RequestPath = "/Uploads"
 });
+
 
 app.UseHttpsRedirection();
 

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("dietitianBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0079e9fc278db481fb7abbc7a9608f536a12205a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+db4fc945d19c3fa40dfcda4c5c1485d3b433a897")]
 [assembly: System.Reflection.AssemblyProductAttribute("dietitianBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("dietitianBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

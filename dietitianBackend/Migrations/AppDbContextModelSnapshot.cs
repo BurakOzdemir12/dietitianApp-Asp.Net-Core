@@ -34,7 +34,7 @@ namespace dietitianBackend.Migrations
 
                     b.HasIndex("BlogId");
 
-                    b.ToTable("BlogBlogCategory");
+                    b.ToTable("BlogBlogCategory", (string)null);
                 });
 
             modelBuilder.Entity("dietitianBackend.Entities.BlogCategory", b =>
@@ -51,7 +51,7 @@ namespace dietitianBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BlogCategory");
+                    b.ToTable("BlogCategory", (string)null);
                 });
 
             modelBuilder.Entity("dietitianBackend.Entities.Blogs", b =>
@@ -78,7 +78,7 @@ namespace dietitianBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blogs", (string)null);
                 });
 
             modelBuilder.Entity("dietitianBackend.Entities.Food", b =>
@@ -139,7 +139,7 @@ namespace dietitianBackend.Migrations
 
                     b.HasIndex("FoodcategoryId");
 
-                    b.ToTable("Foods");
+                    b.ToTable("Foods", (string)null);
                 });
 
             modelBuilder.Entity("dietitianBackend.Entities.FoodCategories", b =>
@@ -159,7 +159,7 @@ namespace dietitianBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FoodCategories");
+                    b.ToTable("FoodCategories", (string)null);
                 });
 
             modelBuilder.Entity("dietitianBackend.Entities.Measurements", b =>
@@ -184,7 +184,7 @@ namespace dietitianBackend.Migrations
 
                     b.HasIndex("FoodId");
 
-                    b.ToTable("Measurements");
+                    b.ToTable("Measurements", (string)null);
                 });
 
             modelBuilder.Entity("dietitianBackend.Entities.RecipeCategory", b =>
@@ -201,7 +201,7 @@ namespace dietitianBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RecipeCategory");
+                    b.ToTable("RecipeCategory", (string)null);
                 });
 
             modelBuilder.Entity("dietitianBackend.Entities.Recipes", b =>
@@ -249,7 +249,7 @@ namespace dietitianBackend.Migrations
 
                     b.HasIndex("RecipeCategoryId");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipes", (string)null);
                 });
 
             modelBuilder.Entity("BlogBlogCategory", b =>
